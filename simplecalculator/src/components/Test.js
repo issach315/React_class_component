@@ -1,0 +1,76 @@
+import React, { useState } from 'react'
+
+const App = () => {
+  const [inputValues, setInputValues] = useState({
+    number_1: 0,
+    number_2: 0,
+  })
+
+  const [result, setResult] = useState({
+    addValue: 0,
+    subValue: 0,
+    multValue: 0,
+    divValue: 0,
+  });
+
+  const changehandulaer = (e, field) => {
+    let obj = JSON.parse(JSON.stringify(inputValues));
+    if (field == "1") {
+      obj.number_1 = e.target.value;
+      setInputValues(obj);
+    } else {
+      obj.number_2 = e.target.value;
+      setInputValues(obj);
+    }
+  }
+
+  const viewHandular = (operationType) => {
+    let obj = JSON.parse(JSON.stringify(result));
+    switch (operationType) {
+      case "add":
+        // setResult((prev) => {
+
+        // })
+        obj.addValue = inputValues.number_1 + inputValues.number_2;
+        setResult(obj);
+        break;
+      case "Sub":
+        obj.subValue = inputValues.number_1 - inputValues.number_2;
+        setResult(obj);
+        break;
+      case "Mul":
+        obj.multValue = inputValues.number_1 * inputValues.number_2;
+        setResult(obj);
+        break;
+      case "Div":
+        obj.divValue = inputValues.number_1 / inputValues.number_2;
+        setResult(obj);
+        break;
+
+      default:
+        break;
+    }
+  }
+  return (
+    <>
+      <div>
+        <input type='number' onChange={e => changehandulaer(e, "1")} value={inputValues.number_1} />
+        <input type='number' onChange={e => changehandulaer(e, "2")} value={inputValues.number_2} />
+        <button onClick={viewHandular("add")}>Add</button>
+        <button onClick={viewHandular("Sub")}>Sub</button>
+        <button onClick={viewHandular("Mul")}>Mul</button>
+        <button onClick={viewHandular("Div")}>Div</button>
+      </div>
+      <div>
+        add : {result.addValue}
+        <br />
+        sub :{result.subValue}
+        <br /> mul :{result.multValue}
+        <br /> div :{result.divValue}
+        <br />
+      </div>
+    </>
+  )
+}
+
+export default App
